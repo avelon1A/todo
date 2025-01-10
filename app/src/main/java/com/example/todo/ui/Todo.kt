@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -86,13 +87,23 @@ fun TodoDetails(todo: Todo, onDeleteConfirmed: (Todo) -> Unit) {
                 Button(onClick = {
                     onDeleteConfirmed(todo)
                     showDeleteDialog = false
-                }) {
-                    Text("Delete")
+                }, colors = ButtonColors(
+                    containerColor = Color.Red,
+                    contentColor =  Color.Black,
+                    disabledContainerColor =  Color.Red,
+                    disabledContentColor =  Color.Red
+                )) {
+                    Text("Delete" ,color = Color.Black)
                 }
             },
             dismissButton = {
-                Button(onClick = { showDeleteDialog = false }) {
-                    Text("Cancel")
+                Button(onClick = { showDeleteDialog = false }, colors = ButtonColors(
+                    containerColor = Color.LightGray,
+                    contentColor =  Color.Black,
+                    disabledContainerColor =  Color.LightGray,
+                    disabledContentColor =  Color.LightGray
+                ) ) {
+                    Text("Cancel",color = Color.Black)
                 }
             }
         )
