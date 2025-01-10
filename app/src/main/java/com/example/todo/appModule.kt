@@ -3,6 +3,7 @@ package com.example.todo
 import android.app.Application
 import androidx.room.Room
 import com.example.todo.database.AppDatabase
+import com.example.todo.ui.TodoDetailsViewModel
 import com.example.todo.ui.TodoViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -17,8 +18,10 @@ val appModule = module {
     }
 
     single { get<AppDatabase>().todoDao() }
+    single { get<AppDatabase>().todoDetails() }
 
-    viewModel { TodoViewModel(get()) }
+    viewModel { TodoViewModel(get(),get()) }
+    viewModel { TodoDetailsViewModel(get()) }
 
 
 }
