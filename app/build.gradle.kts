@@ -63,7 +63,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.kotlinx.serialization.json)
-    ksp(libs.kotlinx.serialization.compiler)
     implementation (libs.androidx.room.runtime)
     annotationProcessor (libs.androidx.room.compiler)
     ksp (libs.androidx.room.compiler)
