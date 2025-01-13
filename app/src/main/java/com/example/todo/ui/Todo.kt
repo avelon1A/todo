@@ -1,7 +1,9 @@
 package com.example.todo.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.todo.database.Todo
 import kotlinx.serialization.Serializable
+import kotlin.random.Random
 
 @Composable
 fun Todo(navController: NavHostController, viewModel: TodoViewModel) {
@@ -45,7 +48,7 @@ fun Todo(navController: NavHostController, viewModel: TodoViewModel) {
         {
             items(todos.size) { item ->
                 TodoDetailsTab(todo = todos[item],  onDeleteConfirmed = { viewModel.deleteTodo(it) },
-                   onClick = {todo -> navController.navigate(TodoDetailsScreen(todo.uid))} )
+                   onClick = {todo -> navController.navigate(TodoDetailsScreen(todo.id))} )
             }
         }
         if (showDialog) {
@@ -59,6 +62,7 @@ fun Todo(navController: NavHostController, viewModel: TodoViewModel) {
 
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TodoDetailsTab(todo: Todo, onDeleteConfirmed: (Todo) -> Unit, onClick:(Todo) -> Unit ){
     var showDeleteDialog by remember { mutableStateOf(false) }
@@ -68,14 +72,12 @@ fun TodoDetailsTab(todo: Todo, onDeleteConfirmed: (Todo) -> Unit, onClick:(Todo)
             .clip(shape = RoundedCornerShape(10.dp))
             .background(Color.LightGray)
             .fillMaxWidth()
-            .pointerInput(Unit) {
-                detectTapGestures(
-                    onLongPress = {
-                        showDeleteDialog = true
-                    }
-                )
-            }
-            .clickable { onClick(todo) },
+            .combinedClickable(
+                onClick = { onClick(todo) },
+                onLongClick = {
+                    showDeleteDialog = true
+                }
+            ),
         verticalArrangement = Arrangement.SpaceAround,
         horizontalAlignment = Alignment.Start
     ) {

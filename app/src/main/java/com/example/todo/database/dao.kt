@@ -13,7 +13,7 @@ interface TodoDao{
     @Query("SELECT * FROM todo")
     fun getAllTasks(): Flow<List<Todo>>
     @Insert
-    fun add(todo:Todo)
+    fun add(todo:Todo):Long
     @Delete
     fun delete(todo:Todo)
 
@@ -26,9 +26,9 @@ interface TodoDetailsDao{
     fun add(todoDetails: TodoDetails)
 
     @Query("SELECT * FROM todoDetails WHERE todoId = :todoId")
-    fun getAllTasks(todoId: UUID): Flow<TodoDetails>
+    fun getAllTasks(todoId: Long): Flow<TodoDetails>
 
     @Query("UPDATE todoDetails SET status = :status WHERE id = :todoDetailsId")
-    suspend fun updateStatusById(todoDetailsId: UUID, status: Int)
+    suspend fun updateStatusById(todoDetailsId: Long, status: Int)
 
 }

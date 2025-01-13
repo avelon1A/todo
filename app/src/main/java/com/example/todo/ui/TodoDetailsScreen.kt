@@ -20,7 +20,7 @@ import java.util.UUID
 
 
 @Composable
-fun TodoDetailsScreen(navController: NavHostController, todoId: UUID){
+fun TodoDetailsScreen(navController: NavHostController, todoId: Long){
     val viewModel: TodoDetailsViewModel = koinViewModel()
     val todos by viewModel.todosDetails.collectAsState()
     LaunchedEffect(key1 = Unit) {
@@ -37,6 +37,6 @@ fun TodoDetailsScreen(navController: NavHostController, todoId: UUID){
 }
 
 @Serializable
-data class TodoDetailsScreen(@Contextual val uuid: UUID)
+data class TodoDetailsScreen(  val id: Long)
 
 

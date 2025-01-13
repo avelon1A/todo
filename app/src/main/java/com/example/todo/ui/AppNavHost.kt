@@ -24,7 +24,7 @@ fun AppNavHost(
         }
         composable<TodoDetailsScreen> {
          val data = it.toRoute<TodoDetailsScreen>()
-            TodoDetailsScreen(navController = navController,todoId =  data.uuid)
+            TodoDetailsScreen(navController = navController,todoId =  data.id)
         }
     }
 }

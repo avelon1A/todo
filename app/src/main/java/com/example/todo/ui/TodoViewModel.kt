@@ -31,13 +31,20 @@ class TodoViewModel(private val todoDao: TodoDao,
     }
      fun addTodo(todo: Todo) {
         viewModelScope.launch(Dispatchers.IO) {
-            todoDao.add(todo)
-            val todoDetails = TodoDetails(
-                todoId = todo.uid,
-                description = "Initial Description",
-                status = 0
-            )
-            todoDetailsDao.add(todoDetails)
+            try {
+           val todoId =   todoDao.add(todo)
+                val todoDetails = TodoDetails(
+                    todoId = todoId,
+                    description = "Initial Description",
+                    status = 0
+                )
+                todoDetailsDao.add(todoDetails)
+            }
+            catch (e:Exception){
+                e.printStackTrace()
+
+            }
+
         }
     }
      fun deleteTodo(todo: Todo) {
