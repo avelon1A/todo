@@ -27,4 +27,5 @@ fun AppNavHost(
             TodoDetailsScreen(navController = navController,todoId =  data.id)
         }
     }
+    
 }
