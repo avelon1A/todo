@@ -67,7 +67,7 @@ dependencies {
     annotationProcessor (libs.androidx.room.compiler)
     ksp (libs.androidx.room.compiler)
 //    ksp (libs.androidx.room.ktx)
-
+    implementation ("androidx.core:core-splashscreen:1.0.0")
     implementation ("androidx.room:room-ktx:2.6.1")
     implementation("io.insert-koin:koin-android:4.0.0")
     implementation("io.insert-koin:koin-androidx-compose:4.0.0")
