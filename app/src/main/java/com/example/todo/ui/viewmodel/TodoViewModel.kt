@@ -1,4 +1,4 @@
-package com.example.todo.ui
+package com.example.todo.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.util.UUID
 
 class TodoViewModel(private val todoDao: TodoDao,
     private val todoDetailsDao: TodoDetailsDao
@@ -35,7 +34,7 @@ class TodoViewModel(private val todoDao: TodoDao,
            val todoId =   todoDao.add(todo)
                 val todoDetails = TodoDetails(
                     todoId = todoId,
-                    description = "Initial Description",
+                    description = "",
                     status = 0
                 )
                 todoDetailsDao.add(todoDetails)

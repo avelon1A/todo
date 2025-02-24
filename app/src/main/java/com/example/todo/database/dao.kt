@@ -9,18 +9,20 @@ import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
 @Dao
-interface TodoDao{
+interface TodoDao {
     @Query("SELECT * FROM todo")
     fun getAllTasks(): Flow<List<Todo>>
+
     @Insert
-    fun add(todo:Todo):Long
+    fun add(todo: Todo): Long
+
     @Delete
-    fun delete(todo:Todo)
+    fun delete(todo: Todo)
 
 }
 
 @Dao
-interface TodoDetailsDao{
+interface TodoDetailsDao {
 
     @Insert
     fun add(todoDetails: TodoDetails)
@@ -30,5 +32,16 @@ interface TodoDetailsDao{
 
     @Query("UPDATE todoDetails SET status = :status WHERE id = :todoDetailsId")
     suspend fun updateStatusById(todoDetailsId: Long, status: Int)
+
+    @Query(
+        """
+        SELECT todo.title, todoDetails.*
+        FROM todoDetails
+        INNER JOIN todo ON todo.id = todoDetails.todoId
+        WHERE todoDetails.todoId = :todoId
+    """
+    )
+    fun getTodoWithDetailsByTodoId(todoId: Long): Flow<TodoWithDetails>
+
 
 }

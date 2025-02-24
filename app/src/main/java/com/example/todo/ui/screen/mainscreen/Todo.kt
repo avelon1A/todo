@@ -1,10 +1,8 @@
-package com.example.todo.ui
+package com.example.todo.ui.screen.mainscreen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,12 +29,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.todo.database.Todo
+import com.example.todo.ui.screen.detailscreen.TodoDetailsScreen
+import com.example.todo.ui.viewmodel.TodoViewModel
 import kotlinx.serialization.Serializable
-import kotlin.random.Random
 
 @Composable
 fun Todo(navController: NavHostController, viewModel: TodoViewModel) {
@@ -81,8 +79,8 @@ fun TodoDetailsTab(todo: Todo, onDeleteConfirmed: (Todo) -> Unit, onClick:(Todo)
         verticalArrangement = Arrangement.SpaceAround,
         horizontalAlignment = Alignment.Start
     ) {
-        Text(todo.title, style = MaterialTheme.typography.titleLarge,modifier = Modifier.padding(10.dp))
-        Text(todo.details, modifier = Modifier.padding(start = 10.dp,bottom = 10.dp,end = 10.dp))
+        Text(todo.title, style = MaterialTheme.typography.titleLarge,modifier = Modifier.padding(10.dp), color = MaterialTheme.colorScheme.surface)
+        Text(todo.details, modifier = Modifier.padding(start = 10.dp,bottom = 10.dp,end = 10.dp),color = MaterialTheme.colorScheme.surface)
     }
     if (showDeleteDialog) {
         AlertDialog(
