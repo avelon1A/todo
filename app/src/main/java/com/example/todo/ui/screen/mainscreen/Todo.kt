@@ -1,6 +1,8 @@
 package com.example.todo.ui.screen.mainscreen
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -37,9 +40,8 @@ import com.example.todo.ui.viewmodel.TodoViewModel
 import kotlinx.serialization.Serializable
 
 @Composable
-fun Todo(navController: NavHostController, viewModel: TodoViewModel) {
+fun TodoScreen(navController: NavHostController, viewModel: TodoViewModel) {
     val todos by viewModel.todos.collectAsState()
-    var showDialog by remember { mutableStateOf(false) }
 
     Box (modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd){
         LazyColumn(modifier = Modifier.fillMaxSize())
@@ -49,11 +51,8 @@ fun Todo(navController: NavHostController, viewModel: TodoViewModel) {
                    onClick = {todo -> navController.navigate(TodoDetailsScreen(todo.id))} )
             }
         }
-        if (showDialog) {
-            AddTodoDialog(onDismiss = { showDialog = false }, viewModel = viewModel)
-        }
 
-        FloatingActionButton(onClick = { showDialog = true },modifier = Modifier.padding(16.dp)) {
+        FloatingActionButton(onClick = { navController.navigate(CreateTodo)},modifier = Modifier.padding(16.dp)) {
             Text("+")
         }
     }
@@ -68,7 +67,7 @@ fun TodoDetailsTab(todo: Todo, onDeleteConfirmed: (Todo) -> Unit, onClick:(Todo)
         modifier = Modifier
             .padding(start = 20.dp, end = 20.dp, top = 10.dp)
             .clip(shape = RoundedCornerShape(10.dp))
-            .background(Color.LightGray)
+            .background(Color.Black.copy(alpha = 0.8f))
             .fillMaxWidth()
             .combinedClickable(
                 onClick = { onClick(todo) },
