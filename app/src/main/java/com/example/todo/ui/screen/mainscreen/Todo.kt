@@ -37,9 +37,8 @@ import com.example.todo.ui.viewmodel.TodoViewModel
 import kotlinx.serialization.Serializable
 
 @Composable
-fun Todo(navController: NavHostController, viewModel: TodoViewModel) {
+fun TodoScreen(navController: NavHostController, viewModel: TodoViewModel) {
     val todos by viewModel.todos.collectAsState()
-    var showDialog by remember { mutableStateOf(false) }
 
     Box (modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd){
         LazyColumn(modifier = Modifier.fillMaxSize())
@@ -49,11 +48,8 @@ fun Todo(navController: NavHostController, viewModel: TodoViewModel) {
                    onClick = {todo -> navController.navigate(TodoDetailsScreen(todo.id))} )
             }
         }
-        if (showDialog) {
-            AddTodoDialog(onDismiss = { showDialog = false }, viewModel = viewModel)
-        }
 
-        FloatingActionButton(onClick = { showDialog = true },modifier = Modifier.padding(16.dp)) {
+        FloatingActionButton(onClick = { navController.navigate(CreateTodo)},modifier = Modifier.padding(16.dp)) {
             Text("+")
         }
     }
@@ -68,7 +64,7 @@ fun TodoDetailsTab(todo: Todo, onDeleteConfirmed: (Todo) -> Unit, onClick:(Todo)
         modifier = Modifier
             .padding(start = 20.dp, end = 20.dp, top = 10.dp)
             .clip(shape = RoundedCornerShape(10.dp))
-            .background(Color.LightGray)
+            .background(Color.Black.copy(alpha = 0.8f))
             .fillMaxWidth()
             .combinedClickable(
                 onClick = { onClick(todo) },

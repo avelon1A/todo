@@ -73,4 +73,7 @@ dependencies {
     implementation("io.insert-koin:koin-androidx-compose:4.0.0")
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.25.1")
 
+    implementation("io.coil-kt.coil3:coil-compose:3.0.0-rc01")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0-rc01")
+
 }
