@@ -44,15 +44,24 @@ fun TodoScreen(navController: NavHostController, viewModel: TodoViewModel) {
     val todos by viewModel.todos.collectAsState()
 
     Box (modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd){
-        LazyColumn(modifier = Modifier.fillMaxSize())
-        {
-            items(todos.size) { item ->
-                TodoDetailsTab(todo = todos[item],  onDeleteConfirmed = { viewModel.deleteTodo(it) },
-                   onClick = {todo -> navController.navigate(TodoDetailsScreen(todo.id))} )
+        if(todos.isEmpty()){
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+                Text(text = "Create Todo")
+            }
+        } else {
+            LazyColumn(modifier = Modifier.fillMaxSize())
+            {
+                items(todos.size) { item ->
+                    TodoDetailsTab(
+                        todo = todos[item],
+                        onDeleteConfirmed = { viewModel.deleteTodo(it) },
+                        onClick = { todo -> navController.navigate(TodoDetailsScreen(todo.id)) })
+                }
             }
         }
 
-        FloatingActionButton(onClick = { navController.navigate(CreateTodo)},modifier = Modifier.padding(16.dp)) {
+
+        FloatingActionButton(onClick = { navController.navigate(CreateTodo) }, modifier = Modifier.padding(16.dp)) {
             Text("+")
         }
     }
